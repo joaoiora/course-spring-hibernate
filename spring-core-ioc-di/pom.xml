@@ -5,7 +5,7 @@
 
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.joaoiora</groupId>
-  <artifactId>spring-demo-one</artifactId>
+  <artifactId>spring-core-ioc-di</artifactId>
   <version>0.0.1-SNAPSHOT</version>
 
   <properties>
@@ -42,7 +42,6 @@
       <groupId>org.springframework</groupId>
       <artifactId>spring-context-indexer</artifactId>
       <version>${spring.version}</version>
-      <scope>optional</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
