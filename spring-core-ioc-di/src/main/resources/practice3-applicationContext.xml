@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+  xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+  <context:property-placeholder location="classpath:sport.properties" />
+
+  <bean
+    id="myLoggerConfig"
+    class="com.joaoiora.spring.MyLoggerConfig"
+    init-method="initLogger">
+    <property
+      name="rootLoggerLevel"
+      value="FINE" />
+    <property
+      name="printedLoggerLevel"
+      value="FINE" />
+  </bean>
+
+  <bean
+    id="fortuneService"
+    class="com.joaoiora.model.HappyFortuneService" />
+
+  <bean
+    id="randomFortuneService"
+    class="com.joaoiora.model.RandomFortuneService" />
+
+  <bean
+    id="coach"
+    class="com.joaoiora.model.TrackCoach"
+    init-method="doMyStartupStuff"
+    destroy-method="doMyCleanupStuff">
+    <constructor-arg ref="fortuneService" />
+  </bean>
+
+  <bean
+    id="customProcessor"
+    class="com.joaoiora.spring.CustomBeanProcessor" />
+
+  <bean
+    id="soccerCoach"
+    class="com.joaoiora.model.SoccerCoach"
+    scope="prototype"
+    init-method="doMyStartupStuff">
+    <property
+      name="fortuneService"
+      ref="fortuneService" />
+    <property
+      name="emailAddress"
+      value="soccerCoach@mail.com" />
+    <property
+      name="team"
+      value="Sunrisers Hyderabad" />
+  </bean>
+
+  <bean
+    id="anotherSoccerCoach"
+    class="com.joaoiora.model.SoccerCoach">
+    <property
+      name="fortuneService"
+      ref="fortuneService" />
+    <property
+      name="emailAddress"
+      value="${foo.email}" />
+    <property
+      name="team"
+      value="${foo.team}" />
+  </bean>
+
+  <bean
+    id="chessCoach"
+    class="com.joaoiora.model.ChessCoach">
+    <constructor-arg ref="randomFortuneService" />
+  </bean>
+
+</beans>

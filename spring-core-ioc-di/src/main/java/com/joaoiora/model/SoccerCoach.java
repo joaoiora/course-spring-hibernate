@@ -1,10 +1,12 @@
 package com.joaoiora.model;
 
+import org.springframework.beans.factory.DisposableBean;
+
 /**
  * @author João Iora
  */
 public class SoccerCoach
-  implements Coach {
+  implements Coach, DisposableBean {
 
   /**
    *
@@ -26,6 +28,19 @@ public class SoccerCoach
    */
   public SoccerCoach() {
     System.out.println("inside no-arg constructor");
+  }
+
+  /**
+  *
+  */
+  public void doMyStartupStuff() {
+    System.out.println("TrackCoach: inside method doMyStartupStuff");
+  }
+
+  @Override
+  public void destroy()
+    throws Exception {
+    System.out.println("SoccerCoach: inside method destroy");
   }
 
   /**
