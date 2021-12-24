@@ -24,5 +24,4 @@
 
   <context:property-placeholder location="classpath:sport.properties" />
 
-
 </beans>
