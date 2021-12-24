@@ -10,4 +10,9 @@ public interface Coach {
    */
   String getDailyWorkout();
 
+  /**
+   * @return
+   */
+  String getDailyFortune();
+
 }
