@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 import org.springframework.stereotype.Component;
 
 /**
@@ -24,19 +27,22 @@ public class FileRandomFortuneService
   /**
    *
    */
-  private final List<String> fortunes = new ArrayList<>();
+  private List<String> fortunes;
 
   /**
    *
    */
   public FileRandomFortuneService() {
-    readFortunes();
+
   }
 
   /**
    *
    */
-  private void readFortunes() {
+  @PostConstruct
+  private void init() {
+    System.out.println(">> FileRandomFortuneService: inside init() method");
+    fortunes = new ArrayList<>();
     try (var reader = new BufferedReader(new FileReader(FILE))) {
       var line = "";
       while ((line = reader.readLine()) != null) {
@@ -46,11 +52,24 @@ public class FileRandomFortuneService
     catch (final IOException e) {
       e.printStackTrace();
     }
+    System.out.println(">> Amount of Fortunes: " +
+                       fortunes.size());
   }
 
   @Override
   public String getFortune() {
     return fortunes.get(new Random().nextInt(fortunes.size()));
+  }
+
+  /**
+   *
+   */
+  @PreDestroy
+  public void cleanup() {
+    System.out.println(">> FileRandomFortuneService: Inside cleanup() method, setting fortunes to null.");
+    fortunes = null;
+    System.out.println(">> FileRandomFortuneService: fortunes = " +
+                       fortunes);
   }
 
 }
