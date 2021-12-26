@@ -42,6 +42,14 @@ public class Customer {
   private String postalCode;
 
   /**
+   *
+   */
+  // @CourseCode
+  @CourseCode(value = "IORA",
+              message = "must start with IORA")
+  private String courseCode;
+
+  /**
    * @return the firstName
    */
   public String getFirstName() {
@@ -95,6 +103,20 @@ public class Customer {
    */
   public void setPostalCode(String postalCode) {
     this.postalCode = postalCode;
+  }
+
+  /**
+   * @return the courseCode
+   */
+  public String getCourseCode() {
+    return courseCode;
+  }
+
+  /**
+   * @param courseCode the courseCode to set
+   */
+  public void setCourseCode(String courseCode) {
+    this.courseCode = courseCode;
   }
 
 }
