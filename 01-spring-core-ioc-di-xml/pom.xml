@@ -5,7 +5,7 @@
 
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.joaoiora</groupId>
-  <artifactId>spring-core-ioc-di-xml</artifactId>
+  <artifactId>01-spring-core-ioc-di-xml</artifactId>
   <version>0.0.1-SNAPSHOT</version>
 
   <properties>
