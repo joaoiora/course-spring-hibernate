@@ -11,7 +11,7 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
-  <artifactId>03-spring-core-ioc-di-java</artifactId>
+  <artifactId>05-hibernate</artifactId>
   <packaging>jar</packaging>
 
 </project>
