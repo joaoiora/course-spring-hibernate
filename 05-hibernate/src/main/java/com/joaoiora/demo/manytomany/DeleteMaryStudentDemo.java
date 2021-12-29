@@ -1,4 +1,4 @@
-package com.joaoiora.demo;
+package com.joaoiora.demo.manytomany;
 
 import org.hibernate.cfg.Configuration;
 
@@ -11,7 +11,7 @@ import com.joaoiora.entity.Student;
 /**
  * @author João Iora
  */
-public class CreateStudentDemo {
+public class DeleteMaryStudentDemo {
 
   /**
    * @param args
@@ -22,8 +22,17 @@ public class CreateStudentDemo {
         .addAnnotatedClass(Student.class).addAnnotatedClass(InstructorDetail.class).buildSessionFactory();
          final var session = factory.getCurrentSession()) {
       session.beginTransaction();
-      session.save(new Student("John", "Doe", "john@doe.com"));
+      final var student = session.get(Student.class,
+                                      2);
+      System.out.println("\nLoaded student: " +
+                         student);
+      System.out.println("Courses: " +
+                         student.getCourses());
+      System.out.println("\nDeleting student: " +
+                         student);
+      session.delete(student);
       session.getTransaction().commit();
+      System.out.println("Done!");
     }
   }
 
