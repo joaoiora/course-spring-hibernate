@@ -1,5 +1,8 @@
 package com.joaoiora.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -53,6 +57,13 @@ public class Instructor {
   /**
    *
    */
+  @OneToMany(mappedBy = "instructor",
+             cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH })
+  private List<Course> courses = new ArrayList<>();
+
+  /**
+   *
+   */
   public Instructor() {
     super();
   }
@@ -82,6 +93,14 @@ public class Instructor {
            ", instructorDetail=" +
            instructorDetail +
            "]";
+  }
+
+  /**
+   * @param course
+   */
+  public void add(Course course) {
+    courses.add(course);
+    course.setInstructor(this);
   }
 
   /**
@@ -152,6 +171,20 @@ public class Instructor {
    */
   public void setInstructorDetail(InstructorDetail instructorDetail) {
     this.instructorDetail = instructorDetail;
+  }
+
+  /**
+   * @return the courses
+   */
+  public List<Course> getCourses() {
+    return courses;
+  }
+
+  /**
+   * @param courses the courses to set
+   */
+  public void setCourses(List<Course> courses) {
+    this.courses = courses;
   }
 
 }
