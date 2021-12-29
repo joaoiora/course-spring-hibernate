@@ -15,7 +15,7 @@ public class DeleteInstructorDemo {
    */
   public static void main(String[] args) {
 
-    try (final var factory = new Configuration().configure("01-one-to-one-uni-hibernate.cfg.xml")
+    try (final var factory = new Configuration().configure("hb-mappings-hibernate.cfg.xml")
         .addAnnotatedClass(Instructor.class).addAnnotatedClass(InstructorDetail.class).buildSessionFactory();
          final var session = factory.getCurrentSession()) {
       session.beginTransaction();

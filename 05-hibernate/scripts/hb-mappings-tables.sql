@@ -1,6 +1,6 @@
--- DROP DATABASE IF EXISTS "hb_01_one_to_one";
+-- DROP DATABASE IF EXISTS "hb_mappings";
 
-CREATE DATABASE "hb_01_one_to_one"
+CREATE DATABASE "hb_mappings"
     WITH
     OWNER = hbstudent
     ENCODING = "UTF8"
@@ -28,4 +28,14 @@ CREATE TABLE instructor (
   instructor_detail_id int,
   CONSTRAINT pk_instructor PRIMARY KEY (id),
   CONSTRAINT fk_instructor_detail FOREIGN KEY (instructor_detail_id) REFERENCES instructor_detail (id)
+);
+
+DROP TABLE IF EXISTS course;
+
+CREATE TABLE course (
+    id serial,
+    title varchar(128) unique,
+    instructor_id int,
+    constraint pk_course primary key (id),
+    constraint fk_instructor foreign key (instructor_id) references instructor (id)
 );

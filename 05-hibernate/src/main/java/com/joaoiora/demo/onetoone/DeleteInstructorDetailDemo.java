@@ -14,7 +14,7 @@ public class DeleteInstructorDetailDemo {
    * @param args
    */
   public static void main(String[] args) {
-    try (final var factory = new Configuration().configure("01-one-to-one-uni-hibernate.cfg.xml")
+    try (final var factory = new Configuration().configure("hb-mappings-hibernate.cfg.xml")
         .addAnnotatedClass(Instructor.class).addAnnotatedClass(InstructorDetail.class).buildSessionFactory();
          final var session = factory.getCurrentSession()) {
       session.beginTransaction();
@@ -27,6 +27,10 @@ public class DeleteInstructorDetailDemo {
                          instructorDetail.getInstructor());
       System.out.println("Deleting instructorDetail: " +
                          instructorDetail);
+      /*
+       * Breaking bi-directional link
+       * instructorDetail.getInstructor().setInstructorDetail(null);
+       */
       session.delete(instructorDetail);
       session.getTransaction().commit();
       System.out.println("Done!");

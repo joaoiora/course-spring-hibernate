@@ -5,7 +5,7 @@
 <hibernate-configuration>
   <session-factory>
     <property name="connection.driver_class">org.postgresql.Driver</property>
-    <property name="connection.url">jdbc:postgresql://localhost:5432/hb_01_one_to_one</property>
+    <property name="connection.url">jdbc:postgresql://localhost:5432/hb_mappings</property>
     <property name="connection.username">hbstudent</property>
     <property name="connection.password">hbstudent</property>
     <property name="connection.pool_size">1</property>

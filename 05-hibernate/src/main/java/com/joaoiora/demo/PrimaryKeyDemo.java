@@ -13,7 +13,7 @@ public class PrimaryKeyDemo {
    * @param args
    */
   public static void main(String[] args) {
-    try (final var factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Student.class)
+    try (final var factory = new Configuration().configure("hb-mappings-hibernate.cfg.xml").addAnnotatedClass(Student.class)
         .buildSessionFactory()) {
       var session = factory.getCurrentSession();
       session.beginTransaction();
