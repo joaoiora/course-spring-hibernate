@@ -17,7 +17,7 @@ public class TestJdbc {
     try (var connection = DriverManager.getConnection(url,
                                                       user,
                                                       password)) {
-      System.out.println("Connection successfully.");
+      System.out.println("Successfully connected to database.");
     }
     catch (final Exception e) {
       e.printStackTrace();
