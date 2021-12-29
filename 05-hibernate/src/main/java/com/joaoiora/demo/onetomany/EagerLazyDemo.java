@@ -9,7 +9,7 @@ import com.joaoiora.entity.InstructorDetail;
 /**
  * @author João Iora
  */
-public class CreateCoursesDemo {
+public class EagerLazyDemo {
 
   /**
    * @param args
@@ -22,14 +22,16 @@ public class CreateCoursesDemo {
       session.beginTransaction();
       final var instructor = session.get(Instructor.class,
                                          1);
-      final var course1 = new Course("Air Guitar - The Ultimate Guide");
-      instructor.add(course1);
-      final var course2 = new Course("The Pinball Masterclass");
-      instructor.add(course2);
-      session.save(course1);
-      session.save(course2);
+      System.out.println("luv2code: Instructor: " +
+                         instructor);
+      System.out.println("luv2code: Courses: " +
+                         instructor.getCourses());
       session.getTransaction().commit();
-      System.out.println("Done!");
+      session.close();
+      System.out.println("\nluv2code: The session is now closed!\n");
+      System.out.println("luv2code: Courses: " +
+                         instructor.getCourses());
+      System.out.println("luv2code: Done!");
     }
   }
 

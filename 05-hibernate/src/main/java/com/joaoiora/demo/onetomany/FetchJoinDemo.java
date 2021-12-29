@@ -9,7 +9,7 @@ import com.joaoiora.entity.InstructorDetail;
 /**
  * @author João Iora
  */
-public class GetInstructorCoursesDemo {
+public class FetchJoinDemo {
 
   /**
    * @param args
@@ -20,14 +20,21 @@ public class GetInstructorCoursesDemo {
         .buildSessionFactory();
          final var session = factory.getCurrentSession()) {
       session.beginTransaction();
-      final var instructor = session.get(Instructor.class,
-                                         1);
-      System.out.println("Instructor: " +
+      final var query = session.createQuery("select i from Instructor i " +
+                                            "JOIN FETCH i.courses " +
+                                            "where i.id=:theInstructorId",
+                                            Instructor.class);
+      query.setParameter("theInstructorId",
+                         1);
+      final var instructor = query.getSingleResult();
+      System.out.println("luv2code: Instructor: " +
                          instructor);
-      System.out.println("Courses: " +
-                         instructor.getCourses());
       session.getTransaction().commit();
-      System.out.println("Done!");
+      session.close();
+      System.out.println("\nluv2code: The session is now closed!\n");
+      System.out.println("luv2code: Courses: " +
+                         instructor.getCourses());
+      System.out.println("luv2code: Done!");
     }
   }
 

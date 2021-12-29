@@ -11,13 +11,13 @@
 
   <logger
     name="com.joaoiora"
-    level="TRACE" />
+    level="INFO" />
   <logger
     name="org.hibernate.SQL"
-    level="DEBUG" />
+    level="INFO" />
   <logger
     name="org.hibernate.type"
-    level="TRACE" />
+    level="INFO" />
 
   <root level="info">
     <appender-ref ref="console" />
