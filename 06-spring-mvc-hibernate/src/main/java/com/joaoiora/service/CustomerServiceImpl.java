@@ -3,7 +3,6 @@ package com.joaoiora.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,22 +20,21 @@ public class CustomerServiceImpl
    *
    */
   @Autowired
-  @Qualifier(value = "customerDAOImpl")
   private CustomerDAO dao;
 
-  @Transactional(transactionManager = "customerTransactionManager")
+  @Transactional
   @Override
   public List<Customer> getCustomers() {
     return dao.getCustomers();
   }
 
-  @Transactional(transactionManager = "customerTransactionManager")
+  @Transactional
   @Override
   public void saveCustomer(Customer customer) {
     dao.saveCustomer(customer);
   }
 
-  @Transactional(transactionManager = "customerTransactionManager")
+  @Transactional
   @Override
   public Customer loadCustomer(Integer id) {
     return dao.loadCustomer(id);

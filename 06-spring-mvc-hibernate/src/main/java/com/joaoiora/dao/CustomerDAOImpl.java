@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.joaoiora.entity.Customer;
@@ -13,6 +12,7 @@ import com.joaoiora.entity.Customer;
  * @author João Iora
  */
 @Repository
+@SuppressWarnings("resource")
 public class CustomerDAOImpl
   implements CustomerDAO {
 
@@ -20,7 +20,6 @@ public class CustomerDAOImpl
    *
    */
   @Autowired
-  @Qualifier(value = "customerSessionFactory")
   private SessionFactory sessionFactory;
 
   /**
@@ -37,17 +36,15 @@ public class CustomerDAOImpl
 
   @Override
   public void saveCustomer(Customer customer) {
-    // TODO
-    final var session = sessionFactory.openSession();
-    session.saveOrUpdate(customer);
+    final var currentSession = sessionFactory.getCurrentSession();
+    currentSession.saveOrUpdate(customer);
   }
 
   @Override
   public Customer loadCustomer(Integer id) {
-    try (var session = sessionFactory.openSession()) {
-      return session.get(Customer.class,
-                         id);
-    }
+    final var session = sessionFactory.getCurrentSession();
+    return session.get(Customer.class,
+                       id);
   }
 
 }
