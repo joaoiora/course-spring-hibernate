@@ -10,6 +10,6 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 @Configuration
 @EnableAspectJAutoProxy
 @ComponentScan(value = "com.joaoiora")
-public class AOPDemoConfig {
+public class AOPConfig {
 
 }

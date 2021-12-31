@@ -22,6 +22,16 @@ public class AccountDAO {
    * @param account
    * @param vip
    */
+  public void addAccount(Account account) {
+    System.out.println(getClass() +
+                       ": Adding Account: " +
+                       account);
+  }
+
+  /**
+   * @param account
+   * @param vip
+   */
   public void addAccount(Account account, boolean vip) {
     final var message = vip ? ": Adding VIP Account: "
                             : ": Adding Account: ";

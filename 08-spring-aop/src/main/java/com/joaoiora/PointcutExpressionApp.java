@@ -8,19 +8,18 @@ import com.joaoiora.dao.MembershipDAO;
 /**
  * @author João Iora
  */
-public class MainDemoApp {
+public class PointcutExpressionApp {
 
   /**
    * @param args
    */
   public static void main(String[] args) {
-    try (var context = new AnnotationConfigApplicationContext(AOPDemoConfig.class)) {
+    try (var context = new AnnotationConfigApplicationContext(AOPConfig.class)) {
       final var account = context.getBean(AccountDAO.class);
       final var membership = context.getBean(MembershipDAO.class);
       account.addAccount();
       System.out.println("------------------------------------------------------------------------");
-      account.addAccount(new Account("Google", "Beginner"),
-                         false);
+      account.addAccount(new Account("Google", "Beginner"));
       System.out.println("------------------------------------------------------------------------");
       account.addAccount(new Account("MasterCard", "Black"),
                          true);
@@ -30,7 +29,6 @@ public class MainDemoApp {
       membership.addMembershipAccount();
       System.out.println("------------------------------------------------------------------------");
       membership.cancelAccount();
-
     }
   }
 

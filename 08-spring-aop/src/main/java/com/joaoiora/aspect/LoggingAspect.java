@@ -2,6 +2,7 @@ package com.joaoiora.aspect;
 
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
 /**
@@ -10,6 +11,11 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 public class LoggingAspect {
+
+  @Pointcut(value = "execution(* com.joaoiora.dao.*.add*(com.joaoiora.Account))")
+  public void forDaoPackage() {
+
+  }
 
   /**
    *
@@ -22,7 +28,8 @@ public class LoggingAspect {
   // @Before(value = "execution(public void add*(com.joaoiora.Account, ..))")
   // @Before(value = "execution(public void add*(Account))")
   // @Before(value = "execution(public void add*(..))")
-  @Before(value = "execution(* com.joaoiora.dao.*.*(..))")
+  // @Before(value = "execution(* com.joaoiora.dao.*.*(..))")
+  @Before(value = "forDaoPackage()")
   public void beforeAddAccountAdvice() {
     System.out.println(">> Executing @Before at LogginAspect#beforeAddAccountAdvice().");
   }
