@@ -14,7 +14,7 @@ import com.joaoiora.entity.Customer;
  * @author João Iora
  */
 @Repository
-public class CustomerDAOMultiDataSourceImpl
+public class CustomerDAOImpl
   implements CustomerDAO {
 
   /**
