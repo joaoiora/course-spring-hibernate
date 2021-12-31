@@ -63,7 +63,7 @@
       ref="dataSource" />
     <property
       name="packagesToScan"
-      value="com.joaoiora" />
+      value="com.joaoiora.entity" />
     <property name="hibernateProperties">
       <props>
         <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQL10Dialect</prop>
