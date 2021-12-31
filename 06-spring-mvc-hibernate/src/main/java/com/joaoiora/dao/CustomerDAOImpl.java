@@ -47,4 +47,14 @@ public class CustomerDAOImpl
                        id);
   }
 
+  @Override
+  public void deleteCustomer(Integer id) {
+    final var session = sessionFactory.getCurrentSession();
+    session.remove(loadCustomer(id));
+    // final var query = session.createQuery("DELETE FROM Customer WHERE id = :id");
+    // query.setParameter("id",
+    // id);
+    // query.executeUpdate();
+  }
+
 }

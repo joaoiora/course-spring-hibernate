@@ -26,4 +26,9 @@ public interface CustomerService {
    */
   Customer loadCustomer(Integer id);
 
+  /**
+   * @param id
+   */
+  void deleteCustomer(Integer id);
+
 }

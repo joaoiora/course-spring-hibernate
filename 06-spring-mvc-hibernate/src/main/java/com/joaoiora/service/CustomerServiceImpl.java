@@ -40,4 +40,10 @@ public class CustomerServiceImpl
     return dao.loadCustomer(id);
   }
 
+  @Transactional
+  @Override
+  public void deleteCustomer(Integer id) {
+    dao.deleteCustomer(id);
+  }
+
 }
