@@ -82,7 +82,6 @@
 
   <tx:annotation-driven transaction-manager="customerTransactionManager" />
 
-
   <bean
     id="employeeDataSource"
     class="com.mchange.v2.c3p0.ComboPooledDataSource"
