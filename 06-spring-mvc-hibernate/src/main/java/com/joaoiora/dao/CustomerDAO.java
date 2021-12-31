@@ -14,4 +14,16 @@ public interface CustomerDAO {
    */
   List<Customer> getCustomers();
 
+  /**
+   * @param customer
+   */
+  void saveCustomer(Customer customer);
+
+  /**
+   * @param id
+   *
+   * @return
+   */
+  Customer loadCustomer(Integer id);
+
 }

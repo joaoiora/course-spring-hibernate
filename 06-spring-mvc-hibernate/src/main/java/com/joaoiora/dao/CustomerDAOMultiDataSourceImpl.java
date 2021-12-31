@@ -6,6 +6,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.joaoiora.entity.Customer;
 
@@ -13,7 +14,7 @@ import com.joaoiora.entity.Customer;
  * @author João Iora
  */
 @Repository
-public class CustomerDAOImpl
+public class CustomerDAOMultiDataSourceImpl
   implements CustomerDAO {
 
   /**
@@ -26,6 +27,7 @@ public class CustomerDAOImpl
   /**
    *
    */
+  @Transactional(transactionManager = "customerTransactionManager")
   @Override
   public List<Customer> getCustomers() {
     try (var session = sessionFactory.openSession()) {
@@ -37,9 +39,9 @@ public class CustomerDAOImpl
 
   @Override
   public void saveCustomer(Customer customer) {
-    // TODO
-    final var session = sessionFactory.openSession();
-    session.saveOrUpdate(customer);
+    try (var session = sessionFactory.openSession()) {
+      session.saveOrUpdate(customer);
+    }
   }
 
   @Override

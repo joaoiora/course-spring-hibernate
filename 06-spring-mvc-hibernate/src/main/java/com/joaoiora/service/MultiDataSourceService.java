@@ -3,11 +3,12 @@ package com.joaoiora.service;
 import java.util.List;
 
 import com.joaoiora.entity.Customer;
+import com.joaoiora.entity.Employee;
 
 /**
  * @author João Iora
  */
-public interface CustomerService {
+public interface MultiDataSourceService {
 
   /**
    * @return
@@ -15,15 +16,8 @@ public interface CustomerService {
   List<Customer> getCustomers();
 
   /**
-   * @param customer
-   */
-  void saveCustomer(Customer customer);
-
-  /**
-   * @param id
-   *
    * @return
    */
-  Customer loadCustomer(Integer id);
+  List<Employee> getEmployees();
 
 }
