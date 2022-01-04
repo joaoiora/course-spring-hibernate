@@ -16,6 +16,9 @@ public class MembershipDAO {
                        ": Adding a membership Account.");
   }
 
+  /**
+   *
+   */
   public void cancelAccount() {
     System.out.println(getClass() +
                        ": Cancelling Membership Account");

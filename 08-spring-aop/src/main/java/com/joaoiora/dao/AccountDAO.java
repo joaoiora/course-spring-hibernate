@@ -13,6 +13,16 @@ public class AccountDAO {
   /**
    *
    */
+  private String name;
+
+  /**
+   *
+   */
+  private String serviceCode;
+
+  /**
+   *
+   */
   public void addAccount() {
     System.out.println(getClass() +
                        ": Adding an Account.");
@@ -38,9 +48,48 @@ public class AccountDAO {
     System.out.println(getClass() + message + account);
   }
 
+  /**
+   *
+   */
   public void cancelAccount() {
     System.out.println(getClass() +
                        ": Cancelling Account");
+  }
+
+  /**
+   * @return the name
+   */
+  public String getName() {
+    System.out.println(getClass() +
+                       ": getName()");
+    return name;
+  }
+
+  /**
+   * @param name the name to set
+   */
+  public void setName(String name) {
+    System.out.println(getClass() +
+                       ": setName(String)");
+    this.name = name;
+  }
+
+  /**
+   * @return the serviceCode
+   */
+  public String getServiceCode() {
+    System.out.println(getClass() +
+                       ": getServiceCode()");
+    return serviceCode;
+  }
+
+  /**
+   * @param serviceCode the serviceCode to set
+   */
+  public void setServiceCode(String serviceCode) {
+    System.out.println(getClass() +
+                       ": setServiceCode(String)");
+    this.serviceCode = serviceCode;
   }
 
 }

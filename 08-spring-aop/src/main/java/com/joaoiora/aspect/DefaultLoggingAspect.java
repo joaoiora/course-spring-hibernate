@@ -2,7 +2,7 @@ package com.joaoiora.aspect;
 
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 /**
@@ -10,16 +10,12 @@ import org.springframework.stereotype.Component;
  */
 @Aspect
 @Component
-public class LoggingAspect {
-
-  @Pointcut(value = "execution(* com.joaoiora.dao.*.add*(com.joaoiora.Account))")
-  public void forDaoPackage() {
-
-  }
+@Order(value = 2)
+public class DefaultLoggingAspect {
 
   /**
-   *
-   */
+  *
+  */
   // @Before(value = "execution(public void addAccount())")
   // @Before(value = "execution(public void updateAccount())")
   // @Before(value = "execution(public void com.joaoiora.dao.AccountDAO.addAccount())")
@@ -29,9 +25,10 @@ public class LoggingAspect {
   // @Before(value = "execution(public void add*(Account))")
   // @Before(value = "execution(public void add*(..))")
   // @Before(value = "execution(* com.joaoiora.dao.*.*(..))")
-  @Before(value = "forDaoPackage()")
+  @Before(value = "com.joaoiora.aspect.CommonAopExpressions.forDaoPackageNoGetterSetter()")
   public void beforeAddAccountAdvice() {
-    System.out.println(">> Executing @Before at LogginAspect#beforeAddAccountAdvice().");
+    // System.out.println(">> Executing @Before at LogginAspect#beforeAddAccountAdvice().");
+    System.out.println(">> Executing @Before at LogginAspect#beforeAddAccountAdvice(), using @Pointcut declaration.");
   }
 
 }
