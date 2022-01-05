@@ -4,7 +4,7 @@
 <title>Customer Registration Form</title>
 <style>
 .error {
-  color: red
+	color: red
 }
 </style>
 </head>
