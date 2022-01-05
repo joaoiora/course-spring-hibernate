@@ -21,6 +21,7 @@
     <module>09-spring-aop-joinpoint</module>
     <module>10-spring-aop-after-advices</module>
     <module>11-spring-aop-around-advice</module>
+    <module>12-spring-mvc-hibernate-aop</module>
   </modules>
 
   <properties>
