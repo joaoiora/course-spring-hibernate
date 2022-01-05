@@ -18,6 +18,7 @@
     <module>06-spring-mvc-hibernate</module>
     <module>07-spring-mvc-hibernate-multi-datasource</module>
     <module>08-spring-aop</module>
+    <module>09-spring-aop-joinpoint</module>
   </modules>
 
   <properties>
