@@ -29,14 +29,14 @@ public class RegistrationController {
   /**
    *
    */
-  @Autowired
-  private UserService service;
+  private static final Logger LOG = Logger
+      .getLogger(RegistrationController.class.getName());
 
   /**
    *
    */
-  private static final Logger LOG = Logger
-      .getLogger(RegistrationController.class.getName());
+  @Autowired
+  private UserService service;
 
   /**
    * @param binder
@@ -74,15 +74,9 @@ public class RegistrationController {
     LOG.info("Processing registration form for: " +
              userName);
     if (binding.hasErrors()) {
-      model.addAttribute("crmUser",
-                         new CrmUser());
-      model.addAttribute("registrationError",
-                         "User name/password can not be empty.");
-      LOG.warning("User name/password can not be empty.");
       return "registration-form";
     }
-    final var userExists = doesUserExist(userName);
-    if (userExists) {
+    if (userExists(userName)) {
       model.addAttribute("crmUser",
                          new CrmUser());
       model.addAttribute("registrationError",
@@ -113,15 +107,8 @@ public class RegistrationController {
    *
    * @return
    */
-  private boolean doesUserExist(String userName) {
-    LOG.info("Checking if user exists: " +
-             userName);
-    final var exists = service.userExists(userName);
-    LOG.info("User: " +
-             userName +
-             ", exists: " +
-             exists);
-    return exists;
+  private boolean userExists(String userName) {
+    return service.userExists(userName);
   }
 
 }

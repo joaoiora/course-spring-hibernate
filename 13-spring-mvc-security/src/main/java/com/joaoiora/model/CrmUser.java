@@ -4,6 +4,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.joaoiora.validation.FieldMatch;
+import com.joaoiora.validation.ValidEmail;
 
 /**
  * @author João Iora
@@ -56,6 +57,7 @@ public class CrmUser {
   @NotNull(message = "is required")
   @Size(min = 1,
         message = "is required")
+  @ValidEmail
   private String email;
 
   /**

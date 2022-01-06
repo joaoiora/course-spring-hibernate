@@ -13,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.joaoiora.dao.RoleDao;
 import com.joaoiora.dao.UserDao;
 import com.joaoiora.model.CrmUser;
 import com.joaoiora.model.Role;
@@ -35,6 +36,12 @@ public class UserServiceImpl
    *
    */
   @Autowired
+  private RoleDao roleDao;
+
+  /**
+   *
+   */
+  @Autowired
   private BCryptPasswordEncoder passwordEncoder;
 
   @Transactional
@@ -47,8 +54,9 @@ public class UserServiceImpl
   @Override
   public void save(CrmUser crmUser) {
     final var user = new User(crmUser.getUserName(),
-        passwordEncoder.encode(crmUser.getPassword()), crmUser.getFirstName());
-    user.setRoles(List.of(new Role("ROLE_EMPLOYEE")));
+        passwordEncoder.encode(crmUser.getPassword()), crmUser.getFirstName(),
+        crmUser.getLastName(), crmUser.getEmail());
+    user.setRoles(List.of(roleDao.findRoleByName("ROLE_EMPLOYEE")));
     dao.save(user);
   }
 
@@ -67,7 +75,7 @@ public class UserServiceImpl
   @Transactional
   @Override
   public boolean userExists(String userName) {
-    return loadUserByUsername(userName) != null;
+    return dao.findByUserName(userName) != null;
   }
 
   /**
