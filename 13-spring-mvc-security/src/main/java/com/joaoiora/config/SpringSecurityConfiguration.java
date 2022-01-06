@@ -1,11 +1,13 @@
 package com.joaoiora.config;
 
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
 
 /**
  * @author João Iora
@@ -15,16 +17,16 @@ import org.springframework.security.core.userdetails.User;
 public class SpringSecurityConfiguration
   extends WebSecurityConfigurerAdapter {
 
+  /**
+   *
+   */
+  @Autowired
+  private DataSource dataSource;
+
   @Override
   protected void configure(AuthenticationManagerBuilder auth)
     throws Exception {
-    final var users = User.withDefaultPasswordEncoder();
-    auth.inMemoryAuthentication()
-        .withUser(users.username("john").password("john").roles("EMPLOYEE"))
-        .withUser(users.username("mary").password("mary").roles("EMPLOYEE",
-                                                                "MANAGER"))
-        .withUser(users.username("susan").password("susan").roles("EMPLOYEE",
-                                                                  "ADMIN"));
+    auth.jdbcAuthentication().dataSource(dataSource);
   }
 
   @Override
