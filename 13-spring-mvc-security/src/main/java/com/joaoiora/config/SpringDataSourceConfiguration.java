@@ -1,15 +1,19 @@
 package com.joaoiora.config;
 
 import java.beans.PropertyVetoException;
+import java.util.Properties;
 import java.util.logging.Logger;
 
 import javax.sql.DataSource;
 
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.orm.hibernate5.HibernateTransactionManager;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
@@ -36,7 +40,7 @@ public class SpringDataSourceConfiguration {
    * @return
    */
   @Bean
-  public DataSource getSecurityDataSource() {
+  public DataSource getDataSource() {
     final var dataSource = new ComboPooledDataSource();
     try {
       dataSource.setDriverClass(getProperty("jdbc.driver"));
@@ -55,6 +59,43 @@ public class SpringDataSourceConfiguration {
     LOG.info(">> DataSource: " +
              dataSource);
     return dataSource;
+  }
+
+  /**
+   * @return
+   */
+  private Properties getHibernateProperties() {
+    final var props = new Properties();
+    props.setProperty("hibernate.dialect",
+                      getProperty("hibernate.dialect"));
+    props.setProperty("hibernate.show_sql",
+                      getProperty("hibernate.show_sql"));
+    return props;
+  }
+
+  /**
+   * @return
+   */
+  @Bean
+  public LocalSessionFactoryBean sessionFactory() {
+    final var sessionFactory = new LocalSessionFactoryBean();
+    sessionFactory.setDataSource(getDataSource());
+    sessionFactory.setPackagesToScan(getProperty("hiberante.packagesToScan"));
+    sessionFactory.setHibernateProperties(getHibernateProperties());
+    return sessionFactory;
+  }
+
+  /**
+   * @param sessionFactory
+   *
+   * @return
+   */
+  @Autowired
+  @Bean
+  public HibernateTransactionManager transactionManager(SessionFactory sessionFactory) {
+    final var transactionManager = new HibernateTransactionManager();
+    transactionManager.setSessionFactory(sessionFactory);
+    return transactionManager;
   }
 
   /**

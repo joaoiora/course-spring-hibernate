@@ -1,7 +1,5 @@
 package com.joaoiora.config;
 
-import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,18 +24,18 @@ public class SpringSecurityConfiguration
    *
    */
   @Autowired
-  private DataSource dataSource;
+  private UserService service;
 
   /**
    *
    */
   @Autowired
-  private UserService service;
+  private CustomAuthenticationHandler authenticationProvider;
 
   @Override
   protected void configure(AuthenticationManagerBuilder auth)
     throws Exception {
-    auth.jdbcAuthentication().dataSource(dataSource);
+    auth.authenticationProvider(getAuthenticationProvider());
   }
 
   @Override
@@ -47,7 +45,8 @@ public class SpringSecurityConfiguration
         .antMatchers("/leaders/**").hasRole("MANAGER")
         .antMatchers("/systems/**").hasRole("ADMIN").anyRequest()
         .authenticated().and().formLogin().loginPage("/showLoginPage")
-        .loginProcessingUrl("/authenticate").permitAll().and()
+        .loginProcessingUrl("/authenticate")
+        .successHandler(authenticationProvider).permitAll().and()
         .exceptionHandling().accessDeniedPage("/access-denied").and().logout()
         .permitAll();
   }
@@ -56,7 +55,7 @@ public class SpringSecurityConfiguration
    * @return
    */
   @Bean
-  public DaoAuthenticationProvider getDaoAuthenticationProvider() {
+  public DaoAuthenticationProvider getAuthenticationProvider() {
     final var provider = new DaoAuthenticationProvider();
     provider.setUserDetailsService(service);
     provider.setPasswordEncoder(getBCryptPasswordEncoder());
