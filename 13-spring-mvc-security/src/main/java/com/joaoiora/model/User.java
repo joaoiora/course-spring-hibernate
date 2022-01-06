@@ -1,0 +1,140 @@
+package com.joaoiora.model;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+/**
+ * @author João Iora
+ */
+@Entity
+@Table(name = "user")
+public class User {
+
+  /**
+   *
+   */
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "id")
+  private Long id;
+
+  /**
+   *
+   */
+  @Column(name = "username")
+  private String userName;
+
+  /**
+   *
+   */
+  @Column(name = "password")
+  private String password;
+
+  /**
+   *
+   */
+  @Column(name = "first_name")
+  private String firstName;
+
+  /**
+   *
+   */
+  private List<Role> roles = new ArrayList<>();
+
+  /**
+   *
+   */
+  public User() {
+    super();
+  }
+
+  /**
+   * @param userName
+   * @param password
+   * @param firstName
+   */
+  public User(String userName, String password, String firstName) {
+    super();
+    this.userName = userName;
+    this.password = password;
+    this.firstName = firstName;
+  }
+
+  /**
+   * @return the id
+   */
+  public Long getId() {
+    return id;
+  }
+
+  /**
+   * @param id the id to set
+   */
+  public void setId(Long id) {
+    this.id = id;
+  }
+
+  /**
+   * @return the userName
+   */
+  public String getUserName() {
+    return userName;
+  }
+
+  /**
+   * @param userName the userName to set
+   */
+  public void setUserName(String userName) {
+    this.userName = userName;
+  }
+
+  /**
+   * @return the password
+   */
+  public String getPassword() {
+    return password;
+  }
+
+  /**
+   * @param password the password to set
+   */
+  public void setPassword(String password) {
+    this.password = password;
+  }
+
+  /**
+   * @return the firstName
+   */
+  public String getFirstName() {
+    return firstName;
+  }
+
+  /**
+   * @param firstName the firstName to set
+   */
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
+  }
+
+  /**
+   * @return the roles
+   */
+  public List<Role> getRoles() {
+    return roles;
+  }
+
+  /**
+   * @param roles the roles to set
+   */
+  public void setRoles(List<Role> roles) {
+    this.roles = roles;
+  }
+
+}
