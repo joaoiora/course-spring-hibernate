@@ -12,6 +12,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.joaoiora.service.UserService;
+
 /**
  * @author João Iora
  */
@@ -25,6 +27,12 @@ public class SpringSecurityConfiguration
    */
   @Autowired
   private DataSource dataSource;
+
+  /**
+   *
+   */
+  @Autowired
+  private UserService service;
 
   @Override
   protected void configure(AuthenticationManagerBuilder auth)
@@ -44,16 +52,22 @@ public class SpringSecurityConfiguration
         .permitAll();
   }
 
+  /**
+   * @return
+   */
   @Bean
   public DaoAuthenticationProvider getDaoAuthenticationProvider() {
     final var provider = new DaoAuthenticationProvider();
-    // provider.setUserDetailsService(userDetailsService);
-    provider.setPasswordEncoder(newBCryptPasswordEncoder());
+    provider.setUserDetailsService(service);
+    provider.setPasswordEncoder(getBCryptPasswordEncoder());
     return provider;
   }
 
+  /**
+   * @return
+   */
   @Bean
-  public BCryptPasswordEncoder newBCryptPasswordEncoder() {
+  public BCryptPasswordEncoder getBCryptPasswordEncoder() {
     return new BCryptPasswordEncoder();
   }
 

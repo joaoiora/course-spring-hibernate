@@ -37,43 +37,37 @@ public class UserServiceImpl
   @Autowired
   private BCryptPasswordEncoder passwordEncoder;
 
-  /**
-   *
-   */
   @Transactional
   @Override
   public User findByUserName(String userName) {
     return dao.findByUserName(userName);
   }
 
-  /**
-   *
-   */
   @Transactional
   @Override
   public void save(CrmUser crmUser) {
-    final var user = new User();
-    user.setUserName(crmUser.getUserName());
-    user.setPassword(passwordEncoder.encode(crmUser.getPassword()));
-    user.setFirstName(crmUser.getFirstName());
+    final var user = new User(crmUser.getUserName(),
+        passwordEncoder.encode(crmUser.getPassword()), crmUser.getFirstName());
     user.setRoles(List.of(new Role("ROLE_EMPLOYEE")));
     dao.save(user);
   }
 
-  /**
-   *
-   */
   @Transactional
   @Override
   public UserDetails loadUserByUsername(String userName)
     throws UsernameNotFoundException {
     final var user = dao.findByUserName(userName);
     if (user == null) {
-      throw new UsernameNotFoundException("Invalid username orpassword.");
+      throw new UsernameNotFoundException("Invalid username or password.");
     }
     return new org.springframework.security.core.userdetails.User(
-        user.getUserName(), user.getPassword(),
-        mapRolesToAuthorities(user.getRoles()));
+        user.getUserName(), user.getPassword(), toAuthorities(user.getRoles()));
+  }
+
+  @Transactional
+  @Override
+  public boolean userExists(String userName) {
+    return loadUserByUsername(userName) != null;
   }
 
   /**
@@ -81,7 +75,7 @@ public class UserServiceImpl
    *
    * @return
    */
-  private static Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
+  private static Collection<? extends GrantedAuthority> toAuthorities(Collection<Role> roles) {
     return roles.stream()
         .map(role -> new SimpleGrantedAuthority(role.getName()))
         .collect(Collectors.toList());

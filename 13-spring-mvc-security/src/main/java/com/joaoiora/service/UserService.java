@@ -23,4 +23,11 @@ public interface UserService
    */
   void save(CrmUser crmUser);
 
+  /**
+   * @param userName
+   *
+   * @return
+   */
+  boolean userExists(String userName);
+
 }

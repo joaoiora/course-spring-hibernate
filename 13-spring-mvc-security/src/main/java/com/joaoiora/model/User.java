@@ -46,6 +46,18 @@ public class User {
   /**
    *
    */
+  @Column(name = "last_name")
+  private String lastName;
+
+  /**
+   *
+   */
+  @Column(name = "email")
+  private String email;
+
+  /**
+   *
+   */
   private List<Role> roles = new ArrayList<>();
 
   /**
@@ -65,6 +77,16 @@ public class User {
     this.userName = userName;
     this.password = password;
     this.firstName = firstName;
+  }
+
+  public User(String userName, String password, String firstName,
+              String lastName, String email) {
+    super();
+    this.userName = userName;
+    this.password = password;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.email = email;
   }
 
   /**
@@ -121,6 +143,34 @@ public class User {
    */
   public void setFirstName(String firstName) {
     this.firstName = firstName;
+  }
+
+  /**
+   * @return the lastName
+   */
+  public String getLastName() {
+    return lastName;
+  }
+
+  /**
+   * @param lastName the lastName to set
+   */
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
+  }
+
+  /**
+   * @return the email
+   */
+  public String getEmail() {
+    return email;
+  }
+
+  /**
+   * @param email the email to set
+   */
+  public void setEmail(String email) {
+    this.email = email;
   }
 
   /**

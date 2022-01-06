@@ -6,11 +6,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
-import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.joaoiora.model.CrmUser;
+import com.joaoiora.service.UserService;
 
 /**
  * @author João Iora
@@ -34,17 +30,12 @@ public class RegistrationController {
    *
    */
   @Autowired
-  private UserDetailsManager userDetailsManager;
+  private UserService service;
 
   /**
    *
    */
-  private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
-  /**
-   *
-   */
-  private static final Logger logger = Logger
+  private static final Logger LOG = Logger
       .getLogger(RegistrationController.class.getName());
 
   /**
@@ -52,9 +43,9 @@ public class RegistrationController {
    */
   @InitBinder
   public void initBinder(WebDataBinder binder) {
-    final var stringTrimmerEditor = new StringTrimmerEditor(true);
+    final var trimmer = new StringTrimmerEditor(true);
     binder.registerCustomEditor(String.class,
-                                stringTrimmerEditor);
+                                trimmer);
   }
 
   /**
@@ -80,15 +71,14 @@ public class RegistrationController {
   public String processRegistrationForm(@Valid @ModelAttribute("crmUser") CrmUser crmUser,
                                         BindingResult binding, Model model) {
     final var userName = crmUser.getUserName();
-    logger.info("Processing registration form for: " +
-                userName);
-    // form validation
+    LOG.info("Processing registration form for: " +
+             userName);
     if (binding.hasErrors()) {
       model.addAttribute("crmUser",
                          new CrmUser());
       model.addAttribute("registrationError",
                          "User name/password can not be empty.");
-      logger.warning("User name/password can not be empty.");
+      LOG.warning("User name/password can not be empty.");
       return "registration-form";
     }
     final var userExists = doesUserExist(userName);
@@ -97,17 +87,24 @@ public class RegistrationController {
                          new CrmUser());
       model.addAttribute("registrationError",
                          "User name already exists.");
-      logger.warning("User name already exists.");
+      LOG.warning("User name already exists.");
       return "registration-form";
     }
-    var encodedPassword = passwordEncoder.encode(crmUser.getPassword());
-    encodedPassword = "{bcrypt}" +
-                      encodedPassword;
-    final var authorities = AuthorityUtils.createAuthorityList("ROLE_EMPLOYEE");
-    final var tempUser = new User(userName, encodedPassword, authorities);
-    userDetailsManager.createUser(tempUser);
-    logger.info("Successfully created user: " +
-                userName);
+    return proccessRegistrationForm(crmUser,
+                                    userName);
+  }
+
+  /**
+   * @param crmUser
+   * @param userName
+   *
+   * @return
+   */
+  private String proccessRegistrationForm(CrmUser crmUser,
+                                          final String userName) {
+    service.save(crmUser);
+    LOG.info("Successfully created user: " +
+             userName);
     return "registration-confirmation";
   }
 
@@ -117,13 +114,13 @@ public class RegistrationController {
    * @return
    */
   private boolean doesUserExist(String userName) {
-    logger.info("Checking if user exists: " +
-                userName);
-    final var exists = userDetailsManager.userExists(userName);
-    logger.info("User: " +
-                userName +
-                ", exists: " +
-                exists);
+    LOG.info("Checking if user exists: " +
+             userName);
+    final var exists = service.userExists(userName);
+    LOG.info("User: " +
+             userName +
+             ", exists: " +
+             exists);
     return exists;
   }
 

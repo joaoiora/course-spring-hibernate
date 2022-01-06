@@ -38,6 +38,22 @@
                             <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
                             <form:password path="password" placeholder="password" class="form-control" />
                         </div>
+                        <div style="margin-bottom: 25px" class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                            <form:password path="matchingPassword" placeholder="password" class="form-control" />
+                        </div>
+                        <div style="margin-bottom: 25px" class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <form:input path="firstName" placeholder="First Name" class="form-control" />
+                        </div>
+                        <div style="margin-bottom: 25px" class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <form:input path="lastName" placeholder="Last Name" class="form-control" />
+                        </div>
+                        <div style="margin-bottom: 25px" class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <form:input path="email" placeholder="email" class="form-control" />
+                        </div>
                         <div style="margin-top: 10px" class="form-group">
                             <div class="col-sm-6 controls">
                                 <button type="submit" class="btn btn-primary">Register</button>
