@@ -9,12 +9,14 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.stereotype.Component;
 
 import com.joaoiora.service.UserService;
 
 /**
  * @author João Iora
  */
+@Component
 public class CustomAuthenticationHandler
   implements AuthenticationSuccessHandler {
 

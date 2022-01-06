@@ -9,11 +9,13 @@ import javax.sql.DataSource;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
@@ -21,6 +23,8 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
  * @author João Iora
  */
 @Configuration
+@EnableTransactionManagement
+@ComponentScan(basePackages = "com.joaoiora")
 @PropertySource(value = "classpath:jdbc.properties")
 public class SpringDataSourceConfiguration {
 
@@ -56,8 +60,6 @@ public class SpringDataSourceConfiguration {
     dataSource.setMinPoolSize(getIntProperty("connection.pool.minPoolSize"));
     dataSource.setMaxPoolSize(getIntProperty("connection.pool.maxPoolSize"));
     dataSource.setMaxIdleTime(getIntProperty("connection.pool.maxIdleTime"));
-    LOG.info(">> DataSource: " +
-             dataSource);
     return dataSource;
   }
 
@@ -80,7 +82,7 @@ public class SpringDataSourceConfiguration {
   public LocalSessionFactoryBean sessionFactory() {
     final var sessionFactory = new LocalSessionFactoryBean();
     sessionFactory.setDataSource(getDataSource());
-    sessionFactory.setPackagesToScan(getProperty("hiberante.packagesToScan"));
+    sessionFactory.setPackagesToScan(getProperty("hibernate.packagesToScan"));
     sessionFactory.setHibernateProperties(getHibernateProperties());
     return sessionFactory;
   }

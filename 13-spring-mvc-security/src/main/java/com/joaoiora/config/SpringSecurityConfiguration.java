@@ -30,32 +30,31 @@ public class SpringSecurityConfiguration
    *
    */
   @Autowired
-  private CustomAuthenticationHandler authenticationProvider;
+  private CustomAuthenticationHandler authenticationSuccessHandler;
 
   @Override
   protected void configure(AuthenticationManagerBuilder auth)
     throws Exception {
-    auth.authenticationProvider(getAuthenticationProvider());
+    auth.authenticationProvider(getAuthenticationSuccessHandler());
   }
 
   @Override
   protected void configure(HttpSecurity http)
     throws Exception {
-    http.authorizeRequests().antMatchers("/resources/**").permitAll()
+    http.authorizeRequests().antMatchers("/").hasRole("EMPLOYEE")
         .antMatchers("/leaders/**").hasRole("MANAGER")
-        .antMatchers("/systems/**").hasRole("ADMIN").anyRequest()
-        .authenticated().and().formLogin().loginPage("/showLoginPage")
-        .loginProcessingUrl("/authenticate")
-        .successHandler(authenticationProvider).permitAll().and()
-        .exceptionHandling().accessDeniedPage("/access-denied").and().logout()
-        .permitAll();
+        .antMatchers("/systems/**").hasRole("ADMIN").and().formLogin()
+        .loginPage("/showLoginpage").loginProcessingUrl("/authenticate")
+        .successHandler(authenticationSuccessHandler).permitAll().and().logout()
+        .permitAll().and().exceptionHandling()
+        .accessDeniedPage("/access-denied");
   }
 
   /**
    * @return
    */
   @Bean
-  public DaoAuthenticationProvider getAuthenticationProvider() {
+  public DaoAuthenticationProvider getAuthenticationSuccessHandler() {
     final var provider = new DaoAuthenticationProvider();
     provider.setUserDetailsService(service);
     provider.setPasswordEncoder(getBCryptPasswordEncoder());
