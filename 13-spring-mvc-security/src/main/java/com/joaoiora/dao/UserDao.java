@@ -1,6 +1,6 @@
 package com.joaoiora.dao;
 
-import com.joaoiora.model.User;
+import com.joaoiora.model.UserEntity;
 
 /**
  * @author João Iora
@@ -12,11 +12,11 @@ public interface UserDao {
    *
    * @return
    */
-  User findByUserName(String userName);
+  UserEntity findByUserName(String userName);
 
   /**
    * @param user
    */
-  void save(User user);
+  void save(UserEntity user);
 
 }

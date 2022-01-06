@@ -19,8 +19,8 @@ import javax.persistence.Table;
  * @author João Iora
  */
 @Entity
-@Table(name = "user")
-public class User {
+@Table(name = "users")
+public class UserEntity {
 
   /**
    *
@@ -66,14 +66,16 @@ public class User {
   @ManyToMany(fetch = FetchType.LAZY,
               cascade = CascadeType.ALL)
   @JoinTable(name = "users_roles",
-             joinColumns = @JoinColumn(name = "user_id"),
-             inverseJoinColumns = @JoinColumn(name = "role_id"))
-  private List<Role> roles = new ArrayList<>();
+             joinColumns = @JoinColumn(name = "user_id",
+                                       referencedColumnName = "id"),
+             inverseJoinColumns = @JoinColumn(name = "role_id",
+                                              referencedColumnName = "id"))
+  private List<RoleEntity> roles = new ArrayList<>();
 
   /**
    *
    */
-  public User() {
+  public UserEntity() {
     super();
   }
 
@@ -82,7 +84,7 @@ public class User {
    * @param password
    * @param firstName
    */
-  public User(String userName, String password, String firstName) {
+  public UserEntity(String userName, String password, String firstName) {
     super();
     this.userName = userName;
     this.password = password;
@@ -96,7 +98,7 @@ public class User {
    * @param lastName
    * @param email
    */
-  public User(String userName, String password, String firstName,
+  public UserEntity(String userName, String password, String firstName,
               String lastName, String email) {
     super();
     this.userName = userName;
@@ -193,14 +195,14 @@ public class User {
   /**
    * @return the roles
    */
-  public List<Role> getRoles() {
+  public List<RoleEntity> getRoles() {
     return roles;
   }
 
   /**
    * @param roles the roles to set
    */
-  public void setRoles(List<Role> roles) {
+  public void setRoles(List<RoleEntity> roles) {
     this.roles = roles;
   }
 

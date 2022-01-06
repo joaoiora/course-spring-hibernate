@@ -1,10 +1,12 @@
 package com.joaoiora.dao;
 
+import javax.persistence.NoResultException;
+
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.joaoiora.model.Role;
+import com.joaoiora.model.RoleEntity;
 
 /**
  * @author João Iora
@@ -19,14 +21,20 @@ public class RoleDaoImpl
   @Autowired
   private SessionFactory sessionFactory;
 
+  @SuppressWarnings("resource")
   @Override
-  public Role findRoleByName(String roleName) {
-    try (var session = sessionFactory.openSession()) {
-      final var query = session.createQuery("FROM Role WHERE name = :roleName",
-                                            Role.class);
-      query.setParameter("roleName",
-                         roleName);
+  public RoleEntity findRoleByName(String roleName) {
+    final var session = sessionFactory.getCurrentSession();
+    final var query = session
+        .createQuery("FROM RoleEntity WHERE name = :roleName",
+                     RoleEntity.class);
+    query.setParameter("roleName",
+                       roleName);
+    try {
       return query.getSingleResult();
+    }
+    catch (final NoResultException e) {
+      return null;
     }
   }
 

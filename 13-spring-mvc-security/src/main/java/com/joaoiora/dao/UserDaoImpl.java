@@ -1,10 +1,12 @@
 package com.joaoiora.dao;
 
+import javax.persistence.NoResultException;
+
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.joaoiora.model.User;
+import com.joaoiora.model.UserEntity;
 
 /**
  * @author João Iora
@@ -19,20 +21,25 @@ public class UserDaoImpl
   @Autowired
   private SessionFactory sessionFactory;
 
+  @SuppressWarnings("resource")
   @Override
-  public User findByUserName(String theUserName) {
-    try (var session = sessionFactory.openSession()) {
-      final var query = session
-          .createQuery("from User where userName = :userName",
-                       User.class);
-      query.setParameter("userName",
-                         theUserName);
+  public UserEntity findByUserName(String theUserName) {
+    final var session = sessionFactory.getCurrentSession();
+    final var query = session
+        .createQuery("FROM UserEntity WHERE userName = :userName",
+                     UserEntity.class);
+    query.setParameter("userName",
+                       theUserName);
+    try {
       return query.getSingleResult();
+    }
+    catch (final NoResultException e) {
+      return null;
     }
   }
 
   @Override
-  public void save(User user) {
+  public void save(UserEntity user) {
     @SuppressWarnings("resource")
     final var currentSession = sessionFactory.getCurrentSession();
     currentSession.saveOrUpdate(user);

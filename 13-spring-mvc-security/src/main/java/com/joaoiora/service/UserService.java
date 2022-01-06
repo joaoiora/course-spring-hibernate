@@ -3,7 +3,7 @@ package com.joaoiora.service;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import com.joaoiora.model.CrmUser;
-import com.joaoiora.model.User;
+import com.joaoiora.model.UserEntity;
 
 /**
  * @author João Iora
@@ -16,7 +16,7 @@ public interface UserService
    *
    * @return
    */
-  User findByUserName(String userName);
+  UserEntity findByUserName(String userName);
 
   /**
    * @param crmUser

@@ -12,7 +12,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "role")
-public class Role {
+public class RoleEntity {
 
   /**
    *
@@ -31,14 +31,14 @@ public class Role {
   /**
    *
    */
-  public Role() {
+  public RoleEntity() {
     super();
   }
 
   /**
    * @param name
    */
-  public Role(String name) {
+  public RoleEntity(String name) {
     super();
     this.name = name;
   }

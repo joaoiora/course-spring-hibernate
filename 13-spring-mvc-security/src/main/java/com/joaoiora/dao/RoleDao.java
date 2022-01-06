@@ -1,6 +1,6 @@
 package com.joaoiora.dao;
 
-import com.joaoiora.model.Role;
+import com.joaoiora.model.RoleEntity;
 
 /**
  * @author João Iora
@@ -12,6 +12,6 @@ public interface RoleDao {
    *
    * @return
    */
-  Role findRoleByName(String roleName);
+  RoleEntity findRoleByName(String roleName);
 
 }
