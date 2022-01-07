@@ -23,6 +23,8 @@
     <module>11-spring-aop-around-advice</module>
     <module>12-spring-mvc-hibernate-aop</module>
     <module>13-spring-mvc-security</module>
+    <module>14-spring-rest</module>
+    <module>15-spring-crm-rest</module>
   </modules>
 
   <properties>
