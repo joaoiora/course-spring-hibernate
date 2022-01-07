@@ -4,9 +4,6 @@ import java.util.List;
 
 import javax.management.ServiceNotFoundException;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,30 +50,6 @@ public class StudentRestController {
                                          ".");
     }
     return students.get(id);
-  }
-
-  /**
-   * @param e
-   *
-   * @return
-   */
-  @ExceptionHandler
-  public ResponseEntity<StudentErrorResponse> handleException(ServiceNotFoundException e) {
-    final var error = new StudentErrorResponse(HttpStatus.NOT_FOUND.value(),
-        e.getMessage(), System.currentTimeMillis());
-    return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
-  }
-
-  /**
-   * @param e
-   *
-   * @return
-   */
-  @ExceptionHandler
-  public ResponseEntity<StudentErrorResponse> handleException(Exception e) {
-    final var error = new StudentErrorResponse(HttpStatus.BAD_REQUEST.value(),
-        e.getMessage(), System.currentTimeMillis());
-    return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
   }
 
 }

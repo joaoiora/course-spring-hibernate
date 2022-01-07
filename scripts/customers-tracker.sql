@@ -37,4 +37,4 @@ INSERT INTO customer VALUES
 	(4,'Mary','Public','mary@luv2code.com'),
 	(5,'Maxwell','Dixon','max@luv2code.com');
 
-ALTER SEQUENCE customer_id_seq RESTART WITH 5;
+ALTER SEQUENCE customer_id_seq RESTART WITH 6;
