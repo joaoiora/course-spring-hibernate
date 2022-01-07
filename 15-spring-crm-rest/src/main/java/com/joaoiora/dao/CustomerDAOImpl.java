@@ -25,7 +25,7 @@ public class CustomerDAOImpl
   @Override
   public List<Customer> getCustomers() {
     final var session = sessionFactory.getCurrentSession();
-    final var query = session.createQuery("FROM Customer ORDER BY lastName",
+    final var query = session.createQuery("FROM Customer ORDER BY id",
                                           Customer.class);
     return query.getResultList();
   }

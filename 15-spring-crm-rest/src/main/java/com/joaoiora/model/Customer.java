@@ -20,7 +20,7 @@ public class Customer {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")
-  private int id;
+  private Integer id;
 
   /**
    *
@@ -75,14 +75,14 @@ public class Customer {
   /**
    * @return the id
    */
-  public int getId() {
+  public Integer getId() {
     return id;
   }
 
   /**
    * @param id the id to set
    */
-  public void setId(int id) {
+  public void setId(Integer id) {
     this.id = id;
   }
 
