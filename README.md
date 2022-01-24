@@ -1,4 +1,4 @@
-    # Spring & Hibernate Course for Beginners
+# Spring & Hibernate Course for Beginners
 
 Repository created to keep track of every code developed while taking the [Spring & Hibernate Course](https://www.udemy.com/course/spring-hibernate-tutorial/).
 
